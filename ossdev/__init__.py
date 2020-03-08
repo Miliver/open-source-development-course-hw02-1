@@ -34,19 +34,24 @@ class Vector:
         return sum(self.d)
 
     def __setitem__(self, key, value):
-        # TODO: implement
+        if key >= len(self.d):
+            self.d.extend(key+1)
+        self[key] = value;
         return None
 
+
     def __cmp__(self, other):
-        # TODO: implement, -1 if self < other, 0 if self == other, 1 if self > other
+        if (sorted(self.d) > sorted(get(other))):
+            return 1
+        elif (sorted(self.d) == sorted(get(other))):
+            return 0
         return -1
 
     def __neg__(self):
         return Vector([-x for x in self.d])
 
     def __reversed__(self):
-        # TODO: implement vector element reversal (hint: list(reversed(self.d)))
-        return Vector()
+        return Vector(list(reversed(self.d)))
 
     def __add__(self, other):
         if isinstance(other, int):
@@ -55,17 +60,13 @@ class Vector:
             return Vector([self.d[i] + other[i] for i in range(len(self))])
 
     def __sub__(self, other):
-        # TODO: implement vector subtraction
-        return None
+        return [item for item in self.d if item not in get(other)]
 
     def __mul__(self, other):
-        # TODO: implement vector multiplication by a scalar value
-        return None
+        return [(item*other) for item in self.d]
 
     def __xor__(self, other):
-        # TODO: implement bit-wise XOR with a scalar value
-        return None
+        return [item^other for item in self.d]
 
     def length(self):
-        # TODO: implement vector length comp. (hint: return math.sqrt(sum(x*x for x in self.d)))
-        return None
+        return math.sqrt(sum(x*x for x in self.d))
