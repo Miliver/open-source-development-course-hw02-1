@@ -34,16 +34,12 @@ class Vector:
         return sum(self.d)
 
     def __setitem__(self, key, value):
-        if key >= len(self.d):
-            self.d.extend(key+1)
-        self[key] = value;
-        return None
-
-
+        self.d[key] = value
+    
     def __cmp__(self, other):
-        if (sorted(self.d) > sorted(get(other))):
+        if (sorted(self.d) > sorted(other.get())):
             return 1
-        elif (sorted(self.d) == sorted(get(other))):
+        elif (sorted(self.d) == sorted(other.get())):
             return 0
         return -1
 
@@ -60,13 +56,13 @@ class Vector:
             return Vector([self.d[i] + other[i] for i in range(len(self))])
 
     def __sub__(self, other):
-        return [item for item in self.d if item not in get(other)]
+        return Vector([item for item in self.d if item not in other.get()])
 
     def __mul__(self, other):
-        return [(item*other) for item in self.d]
+        return Vector([item*other for item in self.d])
 
     def __xor__(self, other):
-        return [item^other for item in self.d]
+        return Vector([item^other for item in self.d])
 
     def length(self):
-        return math.sqrt(sum(x*x for x in self.d))
+        return Vector(math.sqrt(sum(x*x for x in self.d)))
